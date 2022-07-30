@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,5 +24,6 @@ public class Project {
   @Column(columnDefinition="TEXT")
   private String link;
   @ManyToOne
+  @JsonBackReference
   private User user;
 }

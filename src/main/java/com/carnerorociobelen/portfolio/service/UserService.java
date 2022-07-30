@@ -36,4 +36,15 @@ public class UserService implements IUserService {
 
     return uRepository.findOne(example);
   }
+
+  @Override
+  public Optional<User> updateUserBySlug(String slug, User usr) {
+    Optional<User> savedUser = getUserBySlug(slug);
+    if (savedUser.isPresent()) {
+      usr.setId(savedUser.get().getId());
+      return Optional.of(uRepository.save(usr));
+    } else {
+      return Optional.empty();
+    }
+  }
 }

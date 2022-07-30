@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,5 +26,6 @@ public class Education {
   private String init_date;
   private String end_date;
   @ManyToOne
+  @JsonBackReference
   private User user;
 }

@@ -7,4 +7,5 @@ import com.carnerorociobelen.portfolio.model.User;
 
 public interface IUserService {
   public Optional<User> getUserBySlug(String slug);
+  public Optional<User> updateUserBySlug(String slug, User usr);
 }
