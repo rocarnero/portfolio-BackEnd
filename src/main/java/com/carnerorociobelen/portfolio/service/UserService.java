@@ -36,6 +36,11 @@ public class UserService implements IUserService {
     user2.setSlug("cecilia-carnero");
     uRepository.save(user2);*/
 
+    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    User usr = uRepository.findById(1L).get();
+    usr.setPassword(encoder.encode("12345678"));
+    uRepository.save(usr);
+
     return uRepository.findOne(example);
   }
 

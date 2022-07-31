@@ -36,12 +36,12 @@ public class Controller {
   }
 
   @PutMapping("/{slug}")
-  public Optional<User> editUserBySlug(@PathVariable String slug, @RequestBody User usr){
+  public Optional<User> updateUserBySlug(@PathVariable String slug, @RequestBody User usr){
     return interUser.updateUserBySlug(slug, usr);
   }
 
   @PostMapping("/login")
-  public Optional<User> editUserBySlug(@RequestBody AuthUser usr){
+  public Optional<User> getUserByCredentials(@RequestBody AuthUser usr){
     return interUser.getUserByCredentials(usr);
   }
 
