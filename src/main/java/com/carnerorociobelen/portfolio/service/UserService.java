@@ -6,9 +6,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.carnerorociobelen.portfolio.interfaces.IUserService;
+import com.carnerorociobelen.portfolio.model.AuthUser;
 import com.carnerorociobelen.portfolio.model.User;
 import com.carnerorociobelen.portfolio.repository.UserRepository;
 
@@ -46,5 +48,28 @@ public class UserService implements IUserService {
     } else {
       return Optional.empty();
     }
+  }
+
+  @Override
+  public Optional<User> getUserByCredentials(AuthUser usr) {
+    ExampleMatcher customExampleMatcher = ExampleMatcher.matchingAny()
+    .withMatcher("username", ExampleMatcher.GenericPropertyMatchers.exact());
+
+    User user = new User();
+    user.setUsername(usr.getUsername());
+    Example<User> example = Example.of(user, customExampleMatcher);
+
+    Optional<User> savedUser = uRepository.findOne(example);
+    if (savedUser.isPresent()) {
+      BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+      if (encoder.matches(usr.getPassword(), savedUser.get().getPassword())) {
+        return savedUser;
+      } else {
+        return Optional.empty();
+      }
+    } else {
+      return Optional.empty();
+    }
+
   }
 }

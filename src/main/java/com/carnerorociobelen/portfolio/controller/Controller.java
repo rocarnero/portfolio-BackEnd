@@ -20,6 +20,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.carnerorociobelen.portfolio.dto.UserDTO;
 import com.carnerorociobelen.portfolio.interfaces.IUserService;
+import com.carnerorociobelen.portfolio.model.AuthUser;
 import com.carnerorociobelen.portfolio.model.User;
 import com.carnerorociobelen.portfolio.repository.UserRepository;
 
@@ -37,6 +38,11 @@ public class Controller {
   @PutMapping("/{slug}")
   public Optional<User> editUserBySlug(@PathVariable String slug, @RequestBody User usr){
     return interUser.updateUserBySlug(slug, usr);
+  }
+
+  @PostMapping("/login")
+  public Optional<User> editUserBySlug(@RequestBody AuthUser usr){
+    return interUser.getUserByCredentials(usr);
   }
 
   @Bean
