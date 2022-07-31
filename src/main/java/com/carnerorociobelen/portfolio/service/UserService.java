@@ -38,6 +38,7 @@ public class UserService implements IUserService {
 
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     User usr = uRepository.findById(1L).get();
+    usr.setUsername("rocarnero");
     usr.setPassword(encoder.encode("12345678"));
     uRepository.save(usr);
 
